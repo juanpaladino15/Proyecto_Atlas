@@ -1,0 +1,80 @@
+﻿@model Atlas.Models.Tarea
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Tarea</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaIni)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaIni)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaFin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaFin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.alcanzada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.alcanzada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Equipo.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Equipo.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prioridad.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prioridad.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Proyecto.nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

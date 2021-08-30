@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AtlasBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Equipo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="char" MaxLength="70" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Prioridad">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="char" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Proyecto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="char" MaxLength="50" Nullable="false" />
+    <Property Name="descripcion" Type="text" Nullable="false" />
+    <Property Name="fechaIni" Type="date" Nullable="false" />
+    <Property Name="fechaFin" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="char" MaxLength="70" Nullable="false" />
+    <Property Name="id_equipo" Type="int" Nullable="false" />
+    <Property Name="id_usuario" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tarea">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_proyecto" Type="int" Nullable="false" />
+    <Property Name="nombre" Type="char" MaxLength="70" Nullable="false" />
+    <Property Name="fechaIni" Type="date" Nullable="false" />
+    <Property Name="fechaFin" Type="date" Nullable="false" />
+    <Property Name="id_prioridad" Type="int" Nullable="false" />
+    <Property Name="alcanzada" Type="bit" Nullable="false" />
+    <Property Name="id_equipo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="char" MaxLength="70" Nullable="false" />
+    <Property Name="mail" Type="char" MaxLength="90" Nullable="false" />
+    <Property Name="password" Type="char" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Rol_Equipo">
+    <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+    <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rol">
+        <PropertyRef Name="id_equipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rol_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rol">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarea_Equipo">
+    <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+    <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="id_equipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarea_Prioridad">
+    <End Role="Prioridad" Type="Self.Prioridad" Multiplicity="1" />
+    <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prioridad">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="id_prioridad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarea_Proyecto">
+    <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1" />
+    <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proyecto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="id_proyecto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AtlasBDModelStoreContainer">
+    <EntitySet Name="Equipo" EntityType="Self.Equipo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prioridad" EntityType="Self.Prioridad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Proyecto" EntityType="Self.Proyecto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tarea" EntityType="Self.Tarea" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Rol_Equipo" Association="Self.FK_Rol_Equipo">
+      <End Role="Equipo" EntitySet="Equipo" />
+      <End Role="Rol" EntitySet="Rol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rol_Usuario" Association="Self.FK_Rol_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Rol" EntitySet="Rol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarea_Equipo" Association="Self.FK_Tarea_Equipo">
+      <End Role="Equipo" EntitySet="Equipo" />
+      <End Role="Tarea" EntitySet="Tarea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarea_Prioridad" Association="Self.FK_Tarea_Prioridad">
+      <End Role="Prioridad" EntitySet="Prioridad" />
+      <End Role="Tarea" EntitySet="Tarea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarea_Proyecto" Association="Self.FK_Tarea_Proyecto">
+      <End Role="Proyecto" EntitySet="Proyecto" />
+      <End Role="Tarea" EntitySet="Tarea" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

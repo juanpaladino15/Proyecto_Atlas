@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7acb9eb8eb1341369717ced725a90191" Name="Diagram1">
+        <EntityTypeShape EntityType="AtlasBDModel.Equipo" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasBDModel.Prioridad" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasBDModel.Proyecto" Width="1.5" PointX="3.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasBDModel.Rol" Width="1.5" PointX="3" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasBDModel.Tarea" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AtlasBDModel.Usuario" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="AtlasBDModel.FK_Rol_Equipo" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasBDModel.FK_Tarea_Equipo" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasBDModel.FK_Tarea_Prioridad" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasBDModel.FK_Tarea_Proyecto" ManuallyRouted="false" />
+        <AssociationConnector Association="AtlasBDModel.FK_Rol_Usuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

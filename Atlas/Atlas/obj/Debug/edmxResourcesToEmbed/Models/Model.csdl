@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AtlasBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Equipo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="70" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Rol" Relationship="Self.FK_Rol_Equipo" FromRole="Equipo" ToRole="Rol" />
+    <NavigationProperty Name="Tarea" Relationship="Self.FK_Tarea_Equipo" FromRole="Equipo" ToRole="Tarea" />
+  </EntityType>
+  <EntityType Name="Prioridad">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Tarea" Relationship="Self.FK_Tarea_Prioridad" FromRole="Prioridad" ToRole="Tarea" />
+  </EntityType>
+  <EntityType Name="Proyecto">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="50" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="fechaIni" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fechaFin" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Tarea" Relationship="Self.FK_Tarea_Proyecto" FromRole="Proyecto" ToRole="Tarea" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="70" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="id_equipo" Type="Int32" Nullable="false" />
+    <Property Name="id_usuario" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Equipo" Relationship="Self.FK_Rol_Equipo" FromRole="Rol" ToRole="Equipo" />
+    <NavigationProperty Name="Usuario" Relationship="Self.FK_Rol_Usuario" FromRole="Rol" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Tarea">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_proyecto" Type="Int32" Nullable="false" />
+    <Property Name="nombre" Type="String" MaxLength="70" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="fechaIni" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fechaFin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="id_prioridad" Type="Int32" Nullable="false" />
+    <Property Name="alcanzada" Type="Boolean" Nullable="false" />
+    <Property Name="id_equipo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Equipo" Relationship="Self.FK_Tarea_Equipo" FromRole="Tarea" ToRole="Equipo" />
+    <NavigationProperty Name="Prioridad" Relationship="Self.FK_Tarea_Prioridad" FromRole="Tarea" ToRole="Prioridad" />
+    <NavigationProperty Name="Proyecto" Relationship="Self.FK_Tarea_Proyecto" FromRole="Tarea" ToRole="Proyecto" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="70" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="mail" Type="String" MaxLength="90" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Rol" Relationship="Self.FK_Rol_Usuario" FromRole="Usuario" ToRole="Rol" />
+  </EntityType>
+  <Association Name="FK_Rol_Equipo">
+    <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+    <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rol">
+        <PropertyRef Name="id_equipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarea_Equipo">
+    <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+    <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="id_equipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarea_Prioridad">
+    <End Role="Prioridad" Type="Self.Prioridad" Multiplicity="1" />
+    <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Prioridad">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="id_prioridad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tarea_Proyecto">
+    <End Role="Proyecto" Type="Self.Proyecto" Multiplicity="1" />
+    <End Role="Tarea" Type="Self.Tarea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proyecto">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Tarea">
+        <PropertyRef Name="id_proyecto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Rol_Usuario">
+    <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+    <End Role="Rol" Type="Self.Rol" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Rol">
+        <PropertyRef Name="id_usuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="AtlasBDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Equipo" EntityType="Self.Equipo" />
+    <EntitySet Name="Prioridad" EntityType="Self.Prioridad" />
+    <EntitySet Name="Proyecto" EntityType="Self.Proyecto" />
+    <EntitySet Name="Rol" EntityType="Self.Rol" />
+    <EntitySet Name="Tarea" EntityType="Self.Tarea" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+    <AssociationSet Name="FK_Rol_Equipo" Association="Self.FK_Rol_Equipo">
+      <End Role="Equipo" EntitySet="Equipo" />
+      <End Role="Rol" EntitySet="Rol" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarea_Equipo" Association="Self.FK_Tarea_Equipo">
+      <End Role="Equipo" EntitySet="Equipo" />
+      <End Role="Tarea" EntitySet="Tarea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarea_Prioridad" Association="Self.FK_Tarea_Prioridad">
+      <End Role="Prioridad" EntitySet="Prioridad" />
+      <End Role="Tarea" EntitySet="Tarea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tarea_Proyecto" Association="Self.FK_Tarea_Proyecto">
+      <End Role="Proyecto" EntitySet="Proyecto" />
+      <End Role="Tarea" EntitySet="Tarea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Rol_Usuario" Association="Self.FK_Rol_Usuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Rol" EntitySet="Rol" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

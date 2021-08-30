@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Atlas.Models.Tarea>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaIni)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.fechaFin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.alcanzada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Equipo.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prioridad.nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Proyecto.nombre)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaIni)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.fechaFin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.alcanzada)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Equipo.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prioridad.nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Proyecto.nombre)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
